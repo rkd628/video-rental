@@ -47,13 +47,7 @@ public class Rental {
 
 	public int getDaysRentedLimit() {
 		int limit = 0 ;
-		long diff;
-		if (getStatus() == RentalStatus.Returned) { // returned Video
-			diff = returnDate.getTime() - rentDate.getTime();
-		} else { // not yet returned
-			diff = new Date().getTime() - rentDate.getTime();
-		}
-		int daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
+		int daysRented = getDaysRented();
 
 		if ( daysRented <= 2) return limit ;
 
@@ -63,5 +57,19 @@ public class Rental {
 			case Video.DVD: limit = 2 ; break ;
 		}
 		return limit ;
+	}
+
+	public long getDiffDate() {
+		long diff = 0;
+		if(getStatus() == RentalStatus.Returned){
+			diff = returnDate.getTime() - rentDate.getTime();
+		} else {
+			diff = new Date().getTime() - rentDate.getTime();
+		}
+		return diff;
+	}
+
+	public int getDaysRented(){
+		return (int) (getDiffDate() / (1000 * 60 * 60 * 24)) + 1;
 	}
 }
