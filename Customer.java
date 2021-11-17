@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Customer {
 	private String name;
+	
 
 	private List<Rental> rentals = new ArrayList<Rental>();
 
