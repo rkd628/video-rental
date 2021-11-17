@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 // Domain ~ Presentation - should divide
 public class VRUI {
-	private static Scanner scanner = new Scanner(System.in) ;
+	private static final Scanner scanner = new Scanner(System.in) ;
 
 	// Customer List Video List
-	private List<Customer> customers = new ArrayList<Customer>() ;
+	private final List<Customer> customers = new ArrayList<Customer>() ;
 
-	private List<Video> videos = new ArrayList<Video>() ;
+	private final List<Video> videos = new ArrayList<Video>() ;
 
 	public static void main(String[] args) {
 		VRUI ui = new VRUI() ;
