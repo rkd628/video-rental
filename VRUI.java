@@ -3,11 +3,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-// Domain ~ Presentation - should divide
 public class VRUI {
 	private static final Scanner scanner = new Scanner(System.in) ;
 
-	// Customer List Video List
 	private final List<Customer> customers = new ArrayList<>() ;
 
 	private final List<Video> videos = new ArrayList<>() ;
