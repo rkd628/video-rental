@@ -44,15 +44,9 @@ public class VRUI {
 			Log.print("No customer found") ;
 		} else {
 			// query , modifier
-			Log.print("Name: " + foundCustomer.getName() +
-					"\tRentals: " + foundCustomer.getRentals().size()) ;
-			for ( Rental rental: foundCustomer.getRentals() ) {
-				Log.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
-				Log.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
-			}
-
-			List<Rental> rentals = new ArrayList<Rental>() ;
-			foundCustomer.setRentals(rentals);
+			Log.print("Name: " + foundCustomer.getName());
+			foundCustomer.printRentals();
+			foundCustomer.clearRentals();
 		}
 	}
 
@@ -66,14 +60,7 @@ public class VRUI {
 		Log.print("Enter video title to return: ") ;
 		String videoTitle = scanner.next() ;
 
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		for ( Rental rental: customerRentals ) {
-			if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
-				rental.returnVideo();
-				rental.getVideo().setRented(false);
-				break ;
-			}
-		}
+		foundCustomer.returnVideo(videoTitle);
 	}
 
 	private void init() {
@@ -89,11 +76,8 @@ public class VRUI {
 		videos.add(v1) ;
 		videos.add(v2) ;
 
-		Rental r1 = new Rental(v1) ;
-		Rental r2 = new Rental(v2) ;
-
-		james.addRental(r1) ;
-		james.addRental(r2) ;
+		james.doRental(v1); ;
+		james.doRental(v2); ;
 	}
 
 	public void listVideos() {
@@ -108,12 +92,8 @@ public class VRUI {
 	public void listCustomers() {
 		Log.print("List of customers");
 		for ( Customer customer: customers ) {
-			Log.print("Name: " + customer.getName() +
-					"\tRentals: " + customer.getRentals().size()) ;
-			for ( Rental rental: customer.getRentals() ) {
-				Log.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
-				Log.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
-			}
+			Log.print("Name: " + customer.getName());
+			customer.printRentals();
 		}
 		Log.print("End of list");
 	}

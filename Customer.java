@@ -6,7 +6,7 @@ public class Customer {
 	private String name;
 
 
-	private List<Rental> rentals = new ArrayList<>();
+	private final List<Rental> rentals = new ArrayList<>();
 
 	public Customer(String name) {
 		this.setName(name);
@@ -24,8 +24,8 @@ public class Customer {
 		return rentals;
 	}
 
-	public void setRentals(List<Rental> rentals) {
-		this.rentals = rentals;
+	public void clearRentals() {
+		this.rentals.clear();
 	}
 
 	public void addRental(Rental rental) {
@@ -36,6 +36,17 @@ public class Customer {
 		Rental rental = new Rental(foundVideo) ;
 		foundVideo.setRented(true);
 		rentals.add(rental);
+	}
+
+	public boolean returnVideo(String title) {
+		for ( Rental rental: rentals ) {
+			if ( rental.getVideo().getTitle().equals(title) && rental.getVideo().isRented() ) {
+				rental.returnVideo();
+				rental.getVideo().setRented(false);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String getReport() {
@@ -94,4 +105,11 @@ public class Customer {
 		}
 	}
 
+	public void printRentals() {
+		Log.print("Rentals: " + rentals.size());
+		for ( Rental rental: rentals ) {
+			Log.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
+			Log.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
+		}
+	}
 }
