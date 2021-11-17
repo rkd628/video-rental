@@ -87,11 +87,10 @@ public class Customer {
 	}
 
 	private void printCouponEarned(int point){
-		if ( point >= 10 ) {
-			Log.print("Congrat! You earned one free coupon");
-		}
 		if ( point >= 30 ) {
 			Log.print("Congrat! You earned two free coupon");
+		} else if ( point >= 10 ) {
+			Log.print("Congrat! You earned one free coupon");
 		}
 	}
 
