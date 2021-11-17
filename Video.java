@@ -28,6 +28,8 @@ public class Video {
 			case VHS: penalty = 1 ; break ;
 			case CD: penalty = 2 ; break ;
 			case DVD: penalty = 3 ; break ;
+			default:
+				break;
 		}
 		return penalty ;
 	}
