@@ -6,7 +6,7 @@ public class Customer {
 	private String name;
 
 
-	private List<Rental> rentals = new ArrayList<Rental>();
+	private List<Rental> rentals = new ArrayList<>();
 
 	public Customer(String name) {
 		this.setName(name);

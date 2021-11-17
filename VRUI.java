@@ -8,9 +8,9 @@ public class VRUI {
 	private static final Scanner scanner = new Scanner(System.in) ;
 
 	// Customer List Video List
-	private final List<Customer> customers = new ArrayList<Customer>() ;
+	private final List<Customer> customers = new ArrayList<>() ;
 
-	private final List<Video> videos = new ArrayList<Video>() ;
+	private final List<Video> videos = new ArrayList<>() ;
 
 	public static void main(String[] args) {
 		VRUI ui = new VRUI() ;
