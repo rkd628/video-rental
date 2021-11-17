@@ -39,14 +39,7 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		// Duplication
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = getCustomer(customerName) ;
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -68,13 +61,7 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = getCustomer(customerName) ;
 		if ( foundCustomer == null ) return ;
 
 		System.out.println("Enter video title to return: ") ;
@@ -134,13 +121,7 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = getCustomer(customerName) ;
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -154,13 +135,7 @@ public class VRUI {
 		System.out.println("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = getCustomer(customerName) ;
 
 		if ( foundCustomer == null ) return ;
 
@@ -224,5 +199,14 @@ public class VRUI {
 
 		return command ;
 
+	}
+
+	private Customer getCustomer(String customerName) {
+		for ( Customer customer: customers ) {
+			if ( customer.getName().equals(customerName)) {
+				return customer;
+			}
+		}
+		return null;
 	}
 }
