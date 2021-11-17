@@ -1,3 +1,4 @@
+import java.util.Calendar;
 import java.util.Date;
 
 public class Video {
@@ -69,5 +70,37 @@ public class Video {
 
 	public void setVideoType(int videoType) {
 		this.videoType = videoType;
+	}
+
+	public static class VideoBuilder {
+		private String title;
+		private int videoType;
+		private int priceCode ;
+		private Date registeredDate ;
+
+		public VideoBuilder() {
+			registeredDate = new Date();
+		}
+
+		public VideoBuilder setTitle(String title) {
+			this.title = title;
+			return this;
+		}
+		public VideoBuilder setVideoType(int videoType) {
+			this.videoType = videoType;
+			return this;
+		}
+		public VideoBuilder setPriceCode(int priceCode) {
+			this.priceCode = priceCode;
+			return this;
+		}
+		public VideoBuilder setRegisteredDate(Date date) {
+			this.registeredDate = date;
+			return this;
+		}
+
+		public Video build() {
+			return new Video(title, videoType, priceCode, registeredDate);
+		}
 	}
 }
