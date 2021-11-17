@@ -1,14 +1,10 @@
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class VRUI {
 	private static final Scanner scanner = new Scanner(System.in) ;
 
-	private final List<Customer> customers = new ArrayList<>() ;
-
-	private final List<Video> videos = new ArrayList<>() ;
+	private final VRPresenter presenter = new VRPresenter();
 
 	public static void main(String[] args) {
 		VRUI ui = new VRUI() ;
@@ -36,7 +32,7 @@ public class VRUI {
 		Log.print("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = getCustomer(customerName) ;
+		Customer foundCustomer = presenter.clearRentals(customerName);
 
 		if ( foundCustomer == null ) {
 			Log.print("No customer found") ;
@@ -44,43 +40,26 @@ public class VRUI {
 			// query , modifier
 			Log.print("Name: " + foundCustomer.getName());
 			foundCustomer.printRentals();
-			foundCustomer.clearRentals();
 		}
 	}
 
 	public void returnVideo() {
 		Log.print("Enter customer name: ") ;
 		String customerName = scanner.next() ;
-
-		Customer foundCustomer = getCustomer(customerName) ;
-		if ( foundCustomer == null ) return ;
-
 		Log.print("Enter video title to return: ") ;
 		String videoTitle = scanner.next() ;
 
-		foundCustomer.returnVideo(videoTitle);
+		presenter.returnVideo(videoTitle, videoTitle);
 	}
 
 	private void init() {
-		Customer james = new Customer("James") ;
-		Customer brown = new Customer("Brown") ;
-		customers.add(james) ;
-		customers.add(brown) ;
-
-		Video v1 = new Video.VideoBuilder().setTitle("v1").setVideoType(Video.CD)
-				.setPriceCode(Video.REGULAR).build();
-		Video v2 = new Video.VideoBuilder().setTitle("v2").setVideoType(Video.DVD)
-				.setPriceCode(Video.NEW_RELEASE).build();
-		videos.add(v1) ;
-		videos.add(v2) ;
-
-		james.doRental(v1); ;
-		james.doRental(v2); ;
+		presenter.init();
 	}
 
 	public void listVideos() {
 		Log.print("List of videos");
 
+		List<Video> videos = presenter.getVideos();
 		for ( Video video: videos ) {
 			Log.print("Price code: " + video.getPriceCode() +"\tTitle: " + video.getTitle()) ;
 		}
@@ -89,6 +68,7 @@ public class VRUI {
 
 	public void listCustomers() {
 		Log.print("List of customers");
+		List<Customer> customers = presenter.getCustomers();
 		for ( Customer customer: customers ) {
 			Log.print("Name: " + customer.getName());
 			customer.printRentals();
@@ -100,13 +80,12 @@ public class VRUI {
 		Log.print("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = getCustomer(customerName) ;
+		String report = presenter.getCustomerReport(customerName) ;
 
-		if ( foundCustomer == null ) {
+		if ( report == null ) {
 			Log.print("No customer found") ;
 		} else {
-			String result = foundCustomer.getReport() ;
-			Log.print(result);
+			Log.print(report);
 		}
 	}
 
@@ -114,38 +93,18 @@ public class VRUI {
 		Log.print("Enter customer name: ") ;
 		String customerName = scanner.next() ;
 
-		Customer foundCustomer = getCustomer(customerName) ;
-
-		if ( foundCustomer == null ) return ;
-
 		Log.print("Enter video title to rent: ") ;
 		String videoTitle = scanner.next() ;
 
-		Video foundVideo = findVideoByTitle(videoTitle);
-
-		if (foundVideo == null) {
-			return;
-		}
-
-		foundCustomer.doRental(foundVideo);
+		presenter.rentVideo(customerName, videoTitle);
 	}
 
-	private Video findVideoByTitle(String title){
-		for ( Video video: videos ) {
-			if ( video.getTitle().equals(title) && video.isRented() == false ) {
-				return video;
-			}
-		}
-
-		return null;
-	}
 
 	public void register(String object) {
 		if ( object.equals("customer") ) {
 			Log.print("Enter customer name: ") ;
 			String name = scanner.next();
-			Customer customer = new Customer(name) ;
-			customers.add(customer) ;
+			presenter.registerCustomer(name);
 		}
 		else {
 			Log.print("Enter video title to register: ") ;
@@ -157,9 +116,7 @@ public class VRUI {
 			Log.print("Enter price code( 1 for Regular, 2 for New Release ):") ;
 			int priceCode = scanner.nextInt();
 
-			Date registeredDate = new Date();
-			Video video = new Video(title, videoType, priceCode, registeredDate) ;
-			videos.add(video) ;
+			presenter.registerVideo(title, videoType, priceCode);
 		}
 	}
 
@@ -179,14 +136,5 @@ public class VRUI {
 
 		return command ;
 
-	}
-
-	private Customer getCustomer(String customerName) {
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				return customer;
-			}
-		}
-		return null;
 	}
 }
