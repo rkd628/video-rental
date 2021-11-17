@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Customer {
 	private String name;
-	
+
 
 	private List<Rental> rentals = new ArrayList<Rental>();
 
@@ -46,7 +46,7 @@ public class Customer {
 			int eachPoint = 0 ;
 			int daysRented = 0;
 
-			if (each.getStatus() == 1) { // returned Video
+			if (each.getStatus() == RentalStatus.Rented) { // returned Video
 				long diff = each.getReturnDate().getTime() - each.getRentDate().getTime();
 				daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
 			} else { // not yet returned
