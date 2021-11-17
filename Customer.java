@@ -30,7 +30,12 @@ public class Customer {
 
 	public void addRental(Rental rental) {
 		rentals.add(rental);
+	}
 
+	public void doRental(Video foundVideo) {
+		Rental rental = new Rental(foundVideo) ;
+		foundVideo.setRented(true);
+		rentals.add(rental);
 	}
 
 	public String getReport() {
