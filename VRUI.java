@@ -83,8 +83,10 @@ public class VRUI {
 		customers.add(james) ;
 		customers.add(brown) ;
 
-		Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
-		Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
+		Video v1 = new Video.VideoBuilder().setTitle("v1").setVideoType(Video.CD)
+				.setPriceCode(Video.REGULAR).build();
+		Video v2 = new Video.VideoBuilder().setTitle("v2").setVideoType(Video.DVD)
+				.setPriceCode(Video.NEW_RELEASE).build();
 		videos.add(v1) ;
 		videos.add(v2) ;
 
@@ -142,17 +144,23 @@ public class VRUI {
 		Log.print("Enter video title to rent: ") ;
 		String videoTitle = scanner.next() ;
 
-		Video foundVideo = null ;
+		Video foundVideo = findVideoByTitle(videoTitle);
+
+		if (foundVideo == null) {
+			return;
+		}
+
+		foundCustomer.doRental(foundVideo);
+	}
+
+	private Video findVideoByTitle(String title){
 		for ( Video video: videos ) {
-			if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
-				foundVideo = video ;
-				break ;
+			if ( video.getTitle().equals(title) && video.isRented() == false ) {
+				return video;
 			}
 		}
 
-		if ( foundVideo == null ) return ;
-
-		foundCustomer.doRental(foundVideo);
+		return null;
 	}
 
 	public void register(String object) {
