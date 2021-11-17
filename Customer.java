@@ -81,13 +81,18 @@ public class Customer {
 
 		result += "Total charge: " + totalCharge + "\tTotal Point:" + totalPoint + "\n";
 
+		printCouponEarned(totalPoint);
 
-		if ( totalPoint >= 10 ) {
-			Log.print("Congrat! You earned one free coupon");
-		}
-		if ( totalPoint >= 30 ) {
-			Log.print("Congrat! You earned two free coupon");
-		}
 		return result ;
 	}
+
+	private void printCouponEarned(int point){
+		if ( point >= 10 ) {
+			Log.print("Congrat! You earned one free coupon");
+		}
+		if ( point >= 30 ) {
+			Log.print("Congrat! You earned two free coupon");
+		}
+	}
+
 }
