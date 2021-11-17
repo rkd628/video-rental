@@ -30,7 +30,12 @@ public class Customer {
 
 	public void addRental(Rental rental) {
 		rentals.add(rental);
+	}
 
+	public void doRental(Video foundVideo) {
+		Rental rental = new Rental(foundVideo) ;
+		foundVideo.setRented(true);
+		rentals.add(rental);
 	}
 
 	public String getReport() {
@@ -78,10 +83,10 @@ public class Customer {
 
 
 		if ( totalPoint >= 10 ) {
-			System.out.println("Congrat! You earned one free coupon");
+			Log.print("Congrat! You earned one free coupon");
 		}
 		if ( totalPoint >= 30 ) {
-			System.out.println("Congrat! You earned two free coupon");
+			Log.print("Congrat! You earned two free coupon");
 		}
 		return result ;
 	}
